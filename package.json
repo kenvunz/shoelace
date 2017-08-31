@@ -1,0 +1,35 @@
+{
+    "name": "@kenvunz/shoelace",
+    "version": "1.0.0",
+    "main": "dst/index.js",
+    "repository": "https://github.com/kenvunz/shoelace.git",
+    "author": "Ken Vu <ken@gladeye.com>",
+    "license": "MIT",
+    "dependencies": {
+        "lodash.get": "^4.4.2"
+    },
+    "engines": {
+        "node": ">=7"
+    },
+    "scripts": {
+        "test": "run-s test:jest",
+        "test:jest": "jest",
+        "build:babel": "babel --source-maps inline src -d dst",
+        "build": "yarn clean:dst && yarn run-p \"build:*\"",
+        "start": "yarn start:babel",
+        "start:babel": "yarn clean:dst && run-p \"build:babel -- --watch\"",
+        "clean:dst": "rimraf  dst"
+    },
+    "devDependencies": {
+        "babel-cli": "^6.26.0",
+        "babel-core": "^6.26.0",
+        "babel-jest": "^20.0.3",
+        "babel-plugin-add-module-exports": "^0.2.1",
+        "babel-plugin-module-resolver": "^2.7.1",
+        "babel-preset-env": "^1.6.0",
+        "babel-preset-stage-2": "^6.24.1",
+        "jest": "^20.0.4",
+        "npm-run-all": "^4.1.1",
+        "rimraf": "^2.6.1"
+    }
+}
