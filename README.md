@@ -5,6 +5,8 @@ A little utility that allow you to do this
 **Input:**
 
 ```js
+import { parse } from "@kenvunz/shoelace";
+
 const value = parse({
     foo: {
         baz: "baz",
