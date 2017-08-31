@@ -18,7 +18,7 @@
         "build": "yarn clean:dst && yarn run-p \"build:*\"",
         "start": "yarn start:babel",
         "start:babel": "yarn clean:dst && run-p \"build:babel -- --watch\"",
-        "prepublish": "yarn build",
+        "prepare": "yarn build",
         "clean:dst": "rimraf  dst"
     },
     "devDependencies": {
