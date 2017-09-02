@@ -42,4 +42,12 @@ describe("parse()", () => {
         expect(value.twitter.description).toEqual("TK");
         expect(value.twitter.image).toEqual(value.image);
     });
+
+    it("throws error if circular reference occurs", () => {
+        expect(() => {
+            parse({
+                circular: "@{circular}/"
+            });
+        }).toThrow(Error);
+    });
 });
