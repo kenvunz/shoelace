@@ -1,6 +1,6 @@
 import get from "lodash.get";
 
-export const regex = /(.)@{([\w\.]+)}(.)/g;
+export const regex = /(.)@{([\w\.]+)}(.)/;
 
 export function parse(data) {
     let json = JSON.stringify(data);

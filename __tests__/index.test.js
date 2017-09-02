@@ -22,4 +22,22 @@ describe("parse()", () => {
         expect(value.baz1).toEqual(data.foo.baz);
         expect(value.foo1).toEqual(data.foo);
     });
+
+    it("resolves the issue when property key `socialdek` is more than 8 chars and the `image` prop is not replaced correctly", () => {
+        const data = {
+            socialdek: "TK",
+            url: "http://localhost/",
+            image: "@{url}images/social.jpg",
+            twitter: {
+                description: "@{socialdek}",
+                image: "@{image}"
+            }
+        };
+
+        const value = parse(data);
+
+        expect(value.image).toEqual("http://localhost/images/social.jpg");
+        expect(value.twitter.description).toEqual("TK");
+        expect(value.twitter.image).toEqual(value.image);
+    });
 });
