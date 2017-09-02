@@ -12,7 +12,8 @@ describe("parse()", () => {
             hey: "hey/@{foo.hey}/",
             complex: "@{foo.complex}",
             baz1: "@{baz}",
-            foo1: "@{foo}"
+            foo1: "@{foo}",
+            random: "@{foo.baz1}"
         };
         const value = parse(data);
 
@@ -21,6 +22,7 @@ describe("parse()", () => {
         expect(value.complex).toEqual(data.foo.complex);
         expect(value.baz1).toEqual(data.foo.baz);
         expect(value.foo1).toEqual(data.foo);
+        expect(value.random).toEqual("undefined");
     });
 
     it("resolves the issue when property key `socialdek` is more than 8 chars and the `image` prop is not replaced correctly", () => {

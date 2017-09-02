@@ -8,8 +8,10 @@ export function parse(data) {
     let matches;
 
     while ((matches = regex.exec(json))) {
-        const [input, first, key, last] = matches,
-            value = get(JSON.parse(json), key);
+        const [input, first, key, last] = matches;
+        let value = get(JSON.parse(json), key);
+
+        if (value === void 0) value = "undefined";
 
         if (typeof value === "string") {
             json = json.replace(input, `${first}${value}${last}`);
