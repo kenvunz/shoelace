@@ -11,7 +11,9 @@ export function parse(data) {
         const [input, first, key, last] = matches;
         let value = get(JSON.parse(json), key);
 
-        if (value === void 0) value = "undefined";
+        if (value === void 0) {
+            throw new Error(`Key path "${key}" references an undefined value`);
+        }
 
         if (typeof value === "string") {
             const notion = `@{${key}}`;
