@@ -1,6 +1,6 @@
 {
     "name": "@kenvunz/shoelace",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "main": "dst/index.js",
     "repository": "https://github.com/kenvunz/shoelace.git",
     "author": "Ken Vu <ken@gladeye.com>",
