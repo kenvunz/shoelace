@@ -16,10 +16,10 @@ export function parse(data) {
         }
 
         if (typeof value === "string") {
-            const notion = `@{${key}}`;
+            const tag = `@{${key}}`;
             // if `value` contains `key` itself, means there is
             // circular referencing, terminate with "undefined" value
-            if (value.indexOf(notion) >= 0) {
+            if (value.indexOf(tag) >= 0) {
                 throw new Error(`Key path "${key}" causes circular reference`);
             }
             json = json.replace(input, `${first}${value}${last}`);
