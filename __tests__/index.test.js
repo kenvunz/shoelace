@@ -1,4 +1,4 @@
-const { parse } = require("~/index");
+const { parse, parser } = require("~/index");
 
 describe("parse()", () => {
     it("works as expected", () => {
@@ -55,5 +55,44 @@ describe("parse()", () => {
                 circular: "@{circular}/"
             });
         }).toThrow(Error);
+    });
+
+    it("supports filter", () => {
+        const data = {
+            foo: "baz",
+            baz: "@{foo | change | uppercase}"
+        };
+
+        const parse = parser({
+            change() {
+                return "foo";
+            },
+            uppercase(value) {
+                return value.toUpperCase();
+            }
+        });
+
+        expect(parse(data)).toMatchObject({
+            foo: "baz",
+            baz: "FOO"
+        });
+    });
+
+    it("supports filter for complex type like array", () => {
+        const data = {
+            foo: ["1", "2"],
+            baz: "@{foo | join}"
+        };
+
+        const parse = parser({
+            join(value) {
+                return value.join(".");
+            }
+        });
+
+        expect(parse(data)).toMatchObject({
+            foo: ["1", "2"],
+            baz: "1.2"
+        });
     });
 });

@@ -1,19 +1,33 @@
 import get from "lodash.get";
 
-export const regex = /(.)@{([\w\.]+)}(.)/;
+export const regex = /(.)@{([\w\.]+)\s*([|\w\s]*)}(.)/;
 
-export function parse(data) {
+export function parser(filters) {
+    return function(data) {
+        return parse(data, filters);
+    };
+}
+
+export function parse(data, filters = {}) {
     let json = JSON.stringify(data);
 
     let matches;
 
     while ((matches = regex.exec(json))) {
-        const [input, first, key, last] = matches;
+        const [input, first, key, filter, last] = matches;
         let value = get(JSON.parse(json), key);
+
+        const fns = filter
+            .replace(/\s+/g, "")
+            .split("|")
+            .map(key => filters[key] || null)
+            .filter(Boolean);
 
         if (value === void 0) {
             throw new Error(`Key path "${key}" references an undefined value`);
         }
+
+        fns.forEach(fn => (value = fn(value, key)));
 
         if (typeof value === "string") {
             const tag = `@{${key}}`;
