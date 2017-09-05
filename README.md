@@ -57,7 +57,7 @@ const parse = parser({
 
 const value = parse({
     foo: "Foo",
-    baz: "@{foo}"
+    baz: "@{foo | lowercase}"
 });
 ```
 
